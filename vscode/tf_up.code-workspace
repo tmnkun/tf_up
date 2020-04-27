@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"editor.tabSize": 2
+	},
+	"terraform.languageServer": {
+		"enabled": true,
+		"args": []
+},
+"[terraform]": {
+
+}
+}
