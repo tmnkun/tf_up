@@ -39,11 +39,11 @@ resource "aws_dynamodb_table" "terraform_locks" {
 
 terraform {
   backend "s3" {
-    bucket          = "tmnkun-tf-up-state"
-    key             = "global/s3/terraform.tfstate"
-    region          = "us-east-2"
-    dynamodb_table  = "tf-up-locks"
-    encrypt         = true
+    bucket         = "tmnkun-tf-up-state"
+    key            = "global/s3/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "tf-up-locks"
+    encrypt        = true
   }
 }
 
