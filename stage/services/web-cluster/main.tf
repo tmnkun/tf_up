@@ -3,6 +3,16 @@ provider "aws" {
   region  = "us-east-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "tmnkun-tf-up-state"
+    key            = "stage/services/web-cluster/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "tf-up-locks"
+    encrypt        = true
+  }
+}
+
 data "aws_vpc" "default" {
   default = true
 }
@@ -143,16 +153,4 @@ resource "aws_alb_listener_rule" "asg" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.asg.arn
   }
-}
-
-
-variable "server_port" {
-  description = "The port server will use for HTTP requests"
-  type        = number
-  default     = 8080
-}
-
-output "alb_dns_name" {
-  value       = aws_lb.example.dns_name
-  description = "The domain name of the load balancer"
 }

@@ -3,6 +3,16 @@ provider "aws" {
   profile = "default"
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "tmnkun-tf-up-state"
+    key            = "global/s3/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "tf-up-locks"
+    encrypt        = true
+  }
+}
+
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "tmnkun-tf-up-state"
 
@@ -35,24 +45,4 @@ resource "aws_dynamodb_table" "terraform_locks" {
     name = "LockID"
     type = "S"
   }
-}
-
-terraform {
-  backend "s3" {
-    bucket         = "tmnkun-tf-up-state"
-    key            = "global/s3/terraform.tfstate"
-    region         = "us-east-2"
-    dynamodb_table = "tf-up-locks"
-    encrypt        = true
-  }
-}
-
-output "s3_bucket_arn" {
-  value       = "aws_s3_bucket.terraform_state.arn"
-  description = "The ARN of the S3 bucket"
-}
-
-output "dynamodb_table_name" {
-  value       = "aws_dynamodb_table.terraform_locks.name"
-  description = "The name of the DynamoDB table"
 }
