@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source                  = "..\/..\/..\/..\/modules\/services\/webserver-cluster"
+  source                  = "github.com/tmnkun/tf_modules//services/webserver-cluster?ref=v0.0.2"
 
   cluster_name            = "webserver-stage"
   db_remote_state_bucket  = "tmnkun-tf-up-state"
